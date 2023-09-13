@@ -1,5 +1,5 @@
 import React from 'react';
-import './globals.css';
+
 
 
 
@@ -29,7 +29,7 @@ function PigGame() {
           <p className="current-score" id="current--0">0</p>
         </div>
       </section>
-      <img src="dice-1.png" alt="Playing dice" className="dice" />
+      <img src="./dice-1.png" alt="Playing dice" className="dice" />
       <section className="player player--1">
 
         <h2 className="name" id="name--1">Player 2</h2>

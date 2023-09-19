@@ -1,7 +1,8 @@
 'use client';
 import React, { useState } from 'react';
 
-
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import Blackjack from './blackjack';
 
 
 function PigGame() {
@@ -58,7 +59,9 @@ function PigGame() {
     }
   }
   return (
+
     <div>
+
       {game === 'hello' ? (
         <div>
           <div className="modal hidden">
@@ -97,6 +100,17 @@ function PigGame() {
           </section>
           <button onClick={diceRoll}>🎲Roll Dice</button>
           <button onClick={btnHold}>📥Hold</button>
+          <Router>
+
+
+            <div>
+              <Link to="./blackjack">Black Jack Game</Link>
+            </div>
+
+
+            <Route path="/blackjack" />
+
+          </Router>
         </div>
       ) : (
 

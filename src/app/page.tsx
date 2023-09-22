@@ -1,8 +1,8 @@
 'use client';
 import React, { useState } from 'react';
 
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import Blackjack from './blackjack';
+import Link from 'next/link';
+
 
 
 function PigGame() {
@@ -100,17 +100,9 @@ function PigGame() {
           </section>
           <button onClick={diceRoll}>🎲Roll Dice</button>
           <button onClick={btnHold}>📥Hold</button>
-          <Router>
-
-
-            <div>
-              <Link to="./blackjack">Black Jack Game</Link>
-            </div>
-
-
-            <Route path="/blackjack" />
-
-          </Router>
+          <h1 >
+            Read <Link href="/blackjack">this page!</Link>
+          </h1>
         </div>
       ) : (
 

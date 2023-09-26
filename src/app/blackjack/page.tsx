@@ -1,12 +1,8 @@
 "use client"
 import React, { useState, useEffect } from 'react';
-
+import './black.css'
 const sym: string[] = ['♠', '♥', '♦', '♣'];
 const num: string[] = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
-
-
-
-
 
 const shuffleDeck = (): string[] => {
     const deck: string[] = [];
@@ -64,7 +60,7 @@ const Blackjack: React.FC = () => {
     const [dealerScore, updateDScore] = useState<number>(0);
     const [message, updateMessage] = useState<string>('');
 
-    const [isGameOver, updateGame] = useState<boolean>(false);
+    const [Game, updateGame] = useState<boolean>(false);
 
     useEffect(() => {
         const newDeck: string[] = shuffleDeck();
@@ -72,6 +68,8 @@ const Blackjack: React.FC = () => {
 
 
     }, []);
+
+
 
 
 
@@ -101,22 +99,45 @@ const Blackjack: React.FC = () => {
 
         updateMessage('');
     };
-
+    const hit = () => {
+        if (!Game) {
+            const novaPlayerHand: string[] = [...playerHand, deck.pop()!];
+            updatePlayer(novaPlayerHand);
+            updatePScore(calculateScore(novaPlayerHand));
+        }
+    };
+    const stand = () => {
+        if (!Game) {
+            while (dealerScore < 17) {
+                const newDealer: string[] = [...dealerHand, deck.pop()!];
+                updateDealer(newDealer);
+                updateDScore(calculateScore(newDealer));
+            }
+            if (dealerScore > 21 || playerScore > dealerScore) {
+                updateMessage('Player Wins!');
+            } else if (dealerScore > playerScore) {
+                updateMessage('Dealer Wins!');
+            } else {
+                updateMessage("No one wins");
+            }
+            updateGame(true);
+        }
+    };
 
 
     return (
         <div className="blackjack">
-            <h1>WinWin Casino</h1>
-            <h2>Blackjack</h2>
+            <h1 className="nadpis">WinWin Casino</h1>
+            <h1>🃏Blackjack🃏</h1>
             <button onClick={deal}>Deal</button>
 
             <div className="sekcia">
                 <div className="hand">
-                    <h2>Players Hand</h2>
+                    <h2>Players Hand👶</h2>
                     <div className="cards">
 
                         {playerHand.map((card, index) => (
-                            <div key={index} className="card">
+                            <div key={index} >
                                 {card}
                             </div>
 
@@ -126,11 +147,11 @@ const Blackjack: React.FC = () => {
 
                 </div>
                 <div className="hand">
-                    <h2>Dealers Hand</h2>
+                    <h2>Dealers Hand👲</h2>
 
-                    <div className="cards">
+                    <div >
                         {dealerHand.map((card, index) => (
-                            <div key={index} className="card">
+                            <div key={index} >
 
                                 {card}
 
@@ -140,10 +161,18 @@ const Blackjack: React.FC = () => {
                     <p>Dealer Score: {dealerScore}</p>
 
                 </div>
-            </div>
+
+                {message && <div className="sprava">{message}</div>}
 
 
-        </div>
+
+
+            </div >
+
+            <button onClick={hit}>Hit👊</button>
+            <button onClick={stand}>Stand✋</button>
+
+        </div >
     );
 };
 

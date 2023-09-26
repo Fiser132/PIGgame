@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Press+Start+2P&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+
+
+
+* {
+  margin: 5px;
+  padding: 5px;
+  box-sizing: inherit;
+  font-family: 'Black Ops One', cursive;
+  
+}
+body{
+  background: rgb(238,174,202);
+  background: radial-gradient(circle, rgb(33, 78, 225) 16%, rgb(41, 43, 45) 85%);
+ text-align: center;
+  display: flex;
+  font-size: 20px;
+  justify-content: center; 
+  align-items: center;
+  height: 100%;
+  
+  margin: 0;
+  padding: 0;
+
+ 
+  
+
+}
+button{
+  background-color: rgba(240, 248, 255, 0.345);
+  border: 1px solid rgb(0, 0, 0);
+  padding: 20px;
+  margin: 5px;
+  border-radius: 12px;
+}
+
+.sekcia{
+  background-color: rgba(235, 242, 243, 0.304);
+  border-radius: 15px;
+  margin: 10px;
+}
+h2{
+color: rgb(0, 72, 255);
+
+}
+
+.nadpis{
+    font-size: 72px;
+    background: -webkit-linear-gradient(#5100ff, #fbff00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

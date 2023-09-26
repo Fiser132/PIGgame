@@ -108,12 +108,12 @@ const Blackjack: React.FC = () => {
     };
     const stand = () => {
         if (!Game) {
-            while (dealerScore < 17) {
+            if (dealerScore < 17) {
                 const newDealer: string[] = [...dealerHand, deck.pop()!];
                 updateDealer(newDealer);
                 updateDScore(calculateScore(newDealer));
             }
-            if (dealerScore > 21 || playerScore > dealerScore) {
+            else if (dealerScore > 21 || playerScore > dealerScore) {
                 updateMessage('Player Wins!');
             } else if (dealerScore > playerScore) {
                 updateMessage('Dealer Wins!');

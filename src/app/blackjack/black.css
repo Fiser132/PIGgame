@@ -68,3 +68,15 @@ color: rgb(0, 72, 255);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+.cards
+{
+    font-size: 20px;
+    color:rgb(187, 37, 37);
+}
+h1{
+    font-size: 40px;
+}
+h3{
+    font-size: 15px;
+    color: rgb(104, 107, 107);
+}

@@ -79,6 +79,12 @@ const Blackjack: React.FC = () => {
         if (playerScore > 21) {
             updateMessage('Player lost,Dealer wins');
             updateGame(true);
+        } else if (dealerScore > 21 || playerScore > dealerScore) {
+            updateMessage('Player Wins!');
+        } else if (dealerScore > playerScore) {
+            updateMessage('Dealer Wins!');
+        } else {
+            updateMessage("No one wins");
         }
     }, [playerScore]);
 

@@ -94,20 +94,29 @@ const Blackjack: React.FC = () => {
     };
     const stand = () => {
         if (!Game) {
-            const dealercard = () => {
+            const dCards = () => {
                 if (playerScore > 21) {
                     updateMessage('Dealer Wins!');
 
                 }
                 else if (dealerScore < 17) {
-                    const newDealer: string[] = [...dealerHand, deck.pop()!];
-                    updateDealer(newDealer);
-                    updateDScore(calculateScore(newDealer));
+                    const newD: string[] = [...dealerHand];
+                    for (const card of deck) {
+                        newD.push(card);
+                        const newDScore = calculateScore(newD);
+
+
+                        if (newDScore >= 17) {
+                            updateDealer(newD);
+                            updateDScore(newDScore);
+                            break;
+                        }
+                    }
                 } else {
                     win();
                 }
             };
-            dealercard();
+            dCards();
         }
     };
 

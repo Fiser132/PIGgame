@@ -55,7 +55,7 @@ const Blackjack: React.FC = () => {
     const [deck, updateDeck] = useState<string[]>([]);
     const [playerHand, updatePlayer] = useState<string[]>([]);
     const [dealerHand, updateDealer] = useState<string[]>([]);
-
+    const [btn, updateBtn] = useState(true);
     const [playerScore, updatePScore] = useState<number>(0);
     const [dealerScore, updateDScore] = useState<number>(0);
     const [message, updateMessage] = useState<string>('');
@@ -97,7 +97,7 @@ const Blackjack: React.FC = () => {
             const dCards = () => {
                 if (playerScore > 21) {
                     updateMessage('Dealer Wins!');
-
+                    updateGame(true);
                 }
                 else if (dealerScore < 17) {
                     const newD: string[] = [...dealerHand];
@@ -121,19 +121,23 @@ const Blackjack: React.FC = () => {
     };
 
     const win = () => {
-
-
-        if (dealerScore > 21) {
-            updateMessage('Player Wins!');
-        }
-        else if (playerScore === dealerScore) {
-            updateMessage("No one wins");
-        } else if (dealerScore > 21 || (playerScore <= 21 && playerScore > dealerScore)) {
-            updateMessage('Player Wins!');
-        } else if (dealerScore <= 21 && dealerScore >= playerScore) {
+        if (playerScore > 21) {
             updateMessage('Dealer Wins!');
-        }
+
+        } else
+
+            if (dealerScore > 21) {
+                updateMessage('Player Wins!');
+            }
+            else if (playerScore === dealerScore) {
+                updateMessage("No one wins");
+            } else if (dealerScore > 21 || (playerScore <= 21 && playerScore > dealerScore)) {
+                updateMessage('Player Wins!');
+            } else if (dealerScore <= 21 && dealerScore >= playerScore) {
+                updateMessage('Dealer Wins!');
+            }
         updateGame(true);
+        updateBtn(false);
     };
 
 
@@ -175,7 +179,7 @@ const Blackjack: React.FC = () => {
                     </div>
                     <p>Dealer Score: {dealerScore}</p>
 
-                </div>
+                </div>git
 
                 {message && <div className="sprava">{message}</div>}
 
@@ -184,8 +188,13 @@ const Blackjack: React.FC = () => {
 
             </div >
 
-            <button onClick={hit}>Hit👊</button>
-            <button onClick={stand}>Stand✋</button>
+            {!Game && playerScore <= 21 && btn && (
+
+                <div className="">
+                    <button onClick={hit}>Hit👊</button>
+                    <button onClick={stand}>Stand✋</button>
+                </div>
+            )}
 
         </div >
     );

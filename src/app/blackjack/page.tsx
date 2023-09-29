@@ -74,7 +74,7 @@ const Blackjack: React.FC = () => {
         const newPHand: string[] = [deck.pop()!, deck.pop()!];
         const newDHand: string[] = [deck.pop()!, deck.pop()!];
 
-
+        updateBtn(true);
         updatePlayer(newPHand);
         updateDealer(newDHand);
 
@@ -89,17 +89,23 @@ const Blackjack: React.FC = () => {
         if (!Game) {
             const novaPlayerHand: string[] = [...playerHand, deck.pop()!];
             updatePlayer(novaPlayerHand);
-            updatePScore(calculateScore(novaPlayerHand));
+            const pNew = calculateScore(novaPlayerHand);
+            updatePScore(pNew);
+
+
+            if (pNew > 21) {
+                updateMessage('🎆 Dealer Wins!🎆');
+                updateGame(true);
+            }
+        } else {
+            win();
         }
     };
     const stand = () => {
         if (!Game) {
             const dCards = () => {
-                if (playerScore > 21) {
-                    updateMessage('Dealer Wins!');
-                    updateGame(true);
-                }
-                else if (dealerScore < 17) {
+
+                if (dealerScore < 17) {
                     const newD: string[] = [...dealerHand];
                     for (const card of deck) {
                         newD.push(card);
@@ -112,32 +118,32 @@ const Blackjack: React.FC = () => {
                             break;
                         }
                     }
-                } else {
-                    win();
                 }
+                win();
+
             };
             dCards();
+
         }
     };
 
     const win = () => {
+
         if (playerScore > 21) {
-            updateMessage('Dealer Wins!');
-
-        } else
-
-            if (dealerScore > 21) {
-                updateMessage('Player Wins!');
+            updateMessage('🎆Dealer Wins🎆');
+        } else if (dealerScore > 21) {
+            updateMessage('🎆Player Wins!🎆');
+        } else if (playerScore === dealerScore) {
+            updateMessage('🎆Its a Tie!🎆');
+        } else if (playerScore <= 21 && dealerScore <= 21) {
+            if (playerScore > dealerScore) {
+                updateMessage('🎆Player Wins!🎆');
+            } else {
+                updateMessage('🎆Dealer Wins🎆');
             }
-            else if (playerScore === dealerScore) {
-                updateMessage("No one wins");
-            } else if (dealerScore > 21 || (playerScore <= 21 && playerScore > dealerScore)) {
-                updateMessage('Player Wins!');
-            } else if (dealerScore <= 21 && dealerScore >= playerScore) {
-                updateMessage('Dealer Wins!');
-            }
+        }
         updateGame(true);
-        updateBtn(false);
+
     };
 
 
@@ -179,7 +185,7 @@ const Blackjack: React.FC = () => {
                     </div>
                     <p>Dealer Score: {dealerScore}</p>
 
-                </div>git
+                </div>
 
                 {message && <div className="sprava">{message}</div>}
 
@@ -189,10 +195,9 @@ const Blackjack: React.FC = () => {
             </div >
 
             {!Game && playerScore <= 21 && btn && (
-
-                <div className="">
+                <div className="buttons">
                     <button onClick={hit}>Hit👊</button>
-                    <button onClick={stand}>Stand✋</button>
+                    <button onClick={() => { stand(); updateBtn(false); }}>Stand✋</button>
                 </div>
             )}
 
